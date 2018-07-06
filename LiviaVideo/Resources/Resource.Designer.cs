@@ -44,8 +44,8 @@ namespace LiviaVideo
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int myButton = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int videoViewLivia = 2131099648;
 			
 			static Id()
 			{
@@ -104,6 +104,25 @@ namespace LiviaVideo
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Style
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int AppTheme = 2131034112;
+			
+			// aapt resource value: 0x7f050001
+			public const int NoActionBar = 2131034113;
+			
+			static Style()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Style()
 			{
 			}
 		}
