@@ -23,7 +23,15 @@ namespace LiviaVideo
         private List<string> videoUrls = new List<string>();
         private const string PrefKioskMode = "pref_kiosk_mode";
         private ProgressDialog progress;
-        private const string VideoDirectory = @"/sdcard";
+
+        private readonly string[] VideoDirs =
+        {
+            "/sdcard",
+            "/sdcard/Videos",
+            "/storage/extSdCard",
+            "/storage/external_SD",
+            "/storage/5800-E221",
+        };
 
         public void OnCompletion(MediaPlayer mp)
         {
@@ -91,12 +99,19 @@ namespace LiviaVideo
             videoLivia.SetOnErrorListener(this);
             videoLivia.SetOnPreparedListener(this);
 
-            videoUrls.AddRange(Directory.GetFiles(VideoDirectory, "*.mp4"));
-            videoUrls.AddRange(Directory.GetFiles(VideoDirectory, "*.MP4"));
-            videoUrls.AddRange(Directory.GetFiles(VideoDirectory, "*.avi"));
-            videoUrls.AddRange(Directory.GetFiles(VideoDirectory, "*.AVI"));
-            videoUrls.AddRange(Directory.GetFiles(VideoDirectory, "*.webm"));
-            videoUrls.AddRange(Directory.GetFiles(VideoDirectory, "*.WEBM"));
+            foreach (var videoDirectory in VideoDirs)
+            {
+                if (Directory.Exists(videoDirectory))
+                {
+                    videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.mp4"));
+                    videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.MP4"));
+                    videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.avi"));
+                    videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.AVI"));
+                    videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.webm"));
+                    videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.WEBM"));
+                }
+            }
+
             videoUrls.Shuffle();
 
             PlayNextVideo();
