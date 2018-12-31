@@ -99,16 +99,27 @@ namespace LiviaVideo
             videoLivia.SetOnErrorListener(this);
             videoLivia.SetOnPreparedListener(this);
 
+            var localStoragePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+
+            Toast.MakeText(this, localStoragePath, ToastLength.Long).Show();
+
             foreach (var videoDirectory in VideoDirs)
             {
                 if (Directory.Exists(videoDirectory))
                 {
-                    videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.mp4"));
-                    videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.MP4"));
-                    videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.avi"));
-                    videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.AVI"));
-                    videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.webm"));
-                    videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.WEBM"));
+                    try
+                    {
+                        videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.mp4"));
+                        videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.MP4"));
+                        videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.avi"));
+                        videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.AVI"));
+                        videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.webm"));
+                        videoUrls.AddRange(Directory.GetFiles(videoDirectory, "*.WEBM"));
+                    }
+                    catch (System.Exception ex)
+                    {
+                        Toast.MakeText(this, ex.Message, ToastLength.Long).Show();
+                    }
                 }
             }
 
